@@ -10,11 +10,12 @@
   https://hieromon.github.io/AutoConnect/otabrowser.html
 */
 /*
-  Данная модофикация подключает редирект с / страницы на Hello страницу, 
-    - которая в свою очередь 
-        - умеет читать файловую систему
-        - пытается считать стили с корня
-        - ругается, если их не нашла
+  Данная модофикация подключает 
+    - редирект с корневой страницы на Hello страницу, 
+    - которая в свою очередь содержит кнопку и тест
+    - другой вариант , - страница Page тоже кастомно написана
+    - третий вариант, - добавление в портал своей страницы, ссылающейся на штатный сервер и не наследующий каких либо стилей
+
 */
 
 #define FIRMWARE_VERSION  "0.4.1-dev"
@@ -22,6 +23,17 @@
 #define AUTOCONNECT_MENUCOLOR_TEXT        "#e6e6fa"
 #define AUTOCONNECT_MENUCOLOR_BACKGROUND  "#3e2723"
 #define AUTOCONNECT_MENUCOLOR_ACTIVE      "#4e342e"
+
+// локализация https://hieromon.github.io/AutoConnect/adexterior.html#make-different-menu-labels
+#define AUTOCONNECT_MENULABEL_CONFIGNEW   "Настройка новой AP"
+#define AUTOCONNECT_MENULABEL_OPENSSIDS   "Открыть SSIDs"
+#define AUTOCONNECT_MENULABEL_DISCONNECT  "Отключиться"
+#define AUTOCONNECT_MENULABEL_RESET       "Перезагрузка..."
+#define AUTOCONNECT_MENULABEL_UPDATE      "OTA обновление"
+#define AUTOCONNECT_MENULABEL_HOME        "Главная"
+#define AUTOCONNECT_MENULABEL_DEVINFO     "Инфо"
+#define AUTOCONNECT_BUTTONLABEL_RESET     "Перезагрузить"
+#define AUTOCONNECT_BUTTONLABEL_UPDATE    "Обновить"
 
 // To properly include the suitable header files to the target platform.
 #if defined(ARDUINO_ARCH_ESP8266)

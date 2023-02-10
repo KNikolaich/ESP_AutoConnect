@@ -1,36 +1,28 @@
-#if defined(ARDUINO_ARCH_ESP8266)
-using WiFiWebServer = ESP8266WebServer;
-#elif defined(ARDUINO_ARCH_ESP32)
-using WiFiWebServer = WebServer;
-#endif
+// Definitions of AutoConnectAux page
+static const char PAGE[] PROGMEM = R"(
+{
+  "title": "PAGE",
+  "uri": "/page",
+  "menu": true,
+  "element": [
+    {
+      "name": "cap",
+      "type": "ACText",
+      "value": "This is a custom web page."
+    }
+  ]
+}
+)";
 
-#include <AutoConnectFS.h>
-AutoConnectFS::FS& FlashFS = AUTOCONNECT_APPLIED_FILESYSTEM;
 
 const char* HELLO_URI = "/hello";
 ACText(Caption, "Hello, world", "", "", AC_Tag_DIV);
 ACRadio(Styles, {}, "");
 ACSubmit(Apply, "Apply", HELLO_URI);
 
-// JSON document loading buffer
-String ElementJson;
 
-// Load the element from specified file in the flash on board.
-void loadParam(String fileName) {
-  Serial.printf("Style %s ", fileName.c_str());
-  if (!fileName.startsWith("/"))
-    fileName = String("/") + fileName;
-  File param = FlashFS.open(fileName.c_str(), "r");
-  if (param) {
-    ElementJson = param.readString();
-    param.close();
-    Serial.printf("loaded:\n%s", ElementJson.c_str());
-  }
-  else
-    Serial.println("open failed");
-}
 // AutoConnectAux for the custom Web page.
-AutoConnectAux helloPage(HELLO_URI, "Hello", true, { Caption, Styles, Apply });
+AutoConnectAux helloPage(HELLO_URI, "Привет", true, { Caption, Styles, Apply });
 
 // Redirects from root to the hello page.
 void onRoot() {
@@ -45,31 +37,7 @@ void onRoot() {
 String onHello(AutoConnectAux& aux, PageArgument& args) {
   // Select the style parameter file and load it into the text element.
   AutoConnectRadio& styles = helloPage["Styles"].as<AutoConnectRadio>();
-  loadParam(styles.value());
-
-  // List parameter files stored on the flash.
-  // Those files need to be uploaded to the filesystem in advance.
-  styles.empty();
-#if defined(ARDUINO_ARCH_ESP32)
-  File  dir = FlashFS.open("/", "r");
-  if (dir) {
-    File  parmFile = dir.openNextFile();
-    while (parmFile) {
-      if (!parmFile.isDirectory())
-        styles.add(String(parmFile.name()));
-      parmFile = dir.openNextFile();
-    }
-  }
-#elif defined(ARDUINO_ARCH_ESP8266)
-  Dir dir = FlashFS.openDir("/");
-  while (dir.next()) {
-    if (!dir.isDirectory())
-      styles.add(dir.fileName());
-  }
-#endif
-
-  // Apply picked style
-  helloPage.loadElement(ElementJson);
+  Serial.println("Hello page refresh");
   return String();
 }
 
@@ -77,8 +45,20 @@ String onHello(AutoConnectAux& aux, PageArgument& args) {
 void joinPages(AutoConnect       &portal)
 {  
   helloPage.on(onHello);      // Register the attribute overwrite handler.
+  portal.load(FPSTR(PAGE));
   portal.join(helloPage);     // Join the hello page.
-  
+  // portal.append("/hello", "HELLO"); // т.о. можно добавить какую то кастомную страницу
+  // которая затем может быть описана банальным образом типа 
+  /* 
+   server.on("/hello", [](){
+    server.send(200, "text/html", String(F(
+"<html>"
+"<head><meta name='viewport' content='width=device-width,initial-scale=1.0'></head>"
+"<body><h2>Hello, world</h2></body>"
+"</html>"
+    )));
+  });
+  */
   WiFiWebServer&  webServer = portal.host();
   webServer.on("/", onRoot); 
 }
