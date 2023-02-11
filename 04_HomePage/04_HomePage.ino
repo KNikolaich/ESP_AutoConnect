@@ -47,7 +47,7 @@ using WiFiWebServer = WebServer;
 #endif
 #include <AutoConnect.h>
 
-ESP8266WebServer  Server;          // Replace with WebServer for ESP32
+WiFiWebServer  Server;          // Replace with WebServer for ESP32
 AutoConnect       Portal(Server);
 
 #include "my_events.h"
