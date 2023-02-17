@@ -11,6 +11,13 @@ const char webRootPage[] PROGMEM = R"=====(
   <link rel="stylesheet" href="default/theme.css">
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <style>
+    body{
+      background: linear-gradient( #bbb, transparent 1px), linear-gradient( 90deg, #bbb, transparent 1px);
+      background-size: 15px 15px;
+      background-position: center center;
+    }
+  </style>
 </head>
 
 <body >
@@ -37,15 +44,17 @@ const char webRootPage[] PROGMEM = R"=====(
     </div>
   </nav>
   <p><br></p>
-  <div>
-    <div class="card">
-      <div class="card-header">Данные с датчика DS18B20 и состояние светодиода.</div>
-      <div class="card-body">
-        <h4>Temp(C): <span id="adc_val">-300</span></h4>
-        <h5>LED state: <span id="led_state">NA</span></h5>
-      </div>
+
+
+  <center>
+  <div class="card">
+    <div class="card-header">Данные с датчика DS18B20 и состояние светодиода.</div>
+    <div class="card-body">
+      <h4>Temp(C): <span id="adc_val">-300</span></h4>
+      <h5>LED state: <span id="led_state">NA</span></h5>
     </div>
   </div>
+  </center>
   <script>
     setInterval(function() {
       getData();
@@ -76,7 +85,6 @@ const char webRootPage[] PROGMEM = R"=====(
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" style=""></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
 </body>
 
 </html>

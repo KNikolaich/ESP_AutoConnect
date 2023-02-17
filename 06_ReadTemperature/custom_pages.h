@@ -4,12 +4,9 @@ char* getTemperDallas() {
   return result;
 }
 
-void handleRoot() {
-  String s = webRootPage;
-  Server.send(200, "text/html", s);
-}
+void handleRoot() {  Server.send(200, "text/html", String(webRootPage));}
 
-void led_state_read() {
+void handleLedState() {
   String state = "uncknow";
   if(digitalRead(GPIO_IPLATE_PIN)) state = "ON"; else state = "OFF";
   Server.send(200, "text/plane", state);
@@ -20,8 +17,10 @@ void joinPages(AutoConnect& portal) {
   buildInSetup(portal);
   WiFiWebServer& webServer = portal.host();
   webServer.on("/", handleRoot);
+  
   // обработка ajax запроса на данные с сервера (приходит каждые x секунд)
   webServer.on("/ds18b20read", sensor_data);
+
   // стрипт запрашивает состояние светодиода
-  webServer.on("/led_state_read", led_state_read);
+  webServer.on("/led_state_read", handleLedState);
 }

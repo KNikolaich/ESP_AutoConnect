@@ -50,6 +50,5 @@ void sensor_data()
 {
 //  int a = analogRead(A0);
 //  int temp= a/4.35;
- String sensor_value = String(_temperDallas);
- Server.send(200, "text/plane", sensor_value);
+ Server.send(200, "text/plane", String(_temperDallas));
 }
