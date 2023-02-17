@@ -7,10 +7,26 @@ DS18B20 sensor(&oneWire);
 unsigned long delayForReadDs = millis(); // таймер для работы со считываниями
 int mSecDelay = 1000;  // пауза перед чтением
 
+// настройки простого Кальман фильтра
+float _err_measure = 0.8;  // примерный шум измерений
+float _q = 0.005;   // скорость изменения значений 0.001-1, варьировать самому
+
 void Ds18b20_setup() {
   /* Start the DS18B20 Sensor */
   sensor.setResolution(12); // 12 бит чтения дает максимальную точность
   sensor.begin();
+}
+
+////////////////////////////////////// простой кальман, - фильтр позволяет сглаживать резкие пробросы значений
+float simpleKalman(float newVal) {
+  float _kalman_gain, _current_estimate;
+  static float _err_estimate = _err_measure;
+  static float _last_estimate;
+  _kalman_gain = (float)_err_estimate / (_err_estimate + _err_measure);
+  _current_estimate = _last_estimate + (float)_kalman_gain * (newVal - _last_estimate);
+  _err_estimate =  (1.0 - _kalman_gain) * _err_estimate + fabs(_last_estimate - _current_estimate) * _q;
+  _last_estimate = _current_estimate;
+  return _current_estimate;
 }
 
 void Ds18b20_read()
@@ -21,7 +37,7 @@ void Ds18b20_read()
     {
       Serial.print("Temp: ");      
       _temperDallas = sensor.getTempC();
-      Serial.print(_temperDallas);
+      Serial.print(simpleKalman(_temperDallas));
       Serial.println("ºC");
     }
     delayForReadDs = millis();
