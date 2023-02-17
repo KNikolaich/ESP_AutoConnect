@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru" data-bs-theme="dark">
+ <head>
+  <meta charset="utf-8">
+  <title>Жарь цыплят, гони гусей</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+ </head>
+<body style="padding-top: 58px;">
+<nav class="navbar navbar-expand-lg fixed-top ">
+   <a class="navbar-brand" href="/">Home</a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+     <span class="navbar-toggler-icon"></span>
+   </button>
+<div class="collapse navbar-collapse " id="navbarSupportedContent">
+     <ul class="navbar-nav mr-4">
+       
+       <li class="nav-item">
+         <a class="nav-link" href="/_ac">About</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link " href="/_ac/config">Настройка новой AP</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link " href="/_ac/open">Открыть SSIDs</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link " href="/led">Два светодиода</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link " href="/_ac/update">Update</a>
+       </li>
+     </ul>
+     
+   </div>
+</nav>
+
+  <header id="lb" class="lb-fixed"><input type="checkbox" class="lb-cb" id="lb-cb"><div class="lb-menu lb-menu-right lb-menu-material">
+  <ul class="lb-navigation"><li class="lb-header"><a href="/_ac" class="lb-brand">dev</a><label class="lb-burger lb-burger-dblspin" id="lb-burger" for="lb-cb">
+  <span></span></label></li><li class="lb-item"><a href="/_ac/config">Настройка новой AP</a></li>
+  <li class="lb-item"><a href="/_ac/open">Открыть SSIDs</a></li>
+  <li class="lb-item"><a href="/led">Два светодиода</a></li>
+  <li class="lb-item"><a href="/_ac/update">Update</a></li>
+  <li class="lb-item"><a href="/">Главная</a></li></ul></div>
+  <div class="lap" id="rdlg"><a href="#reset" class="overlap"></a>
+  <div class="modal_button"><h2><a href="/_ac/reset" class="modal_button">Перезагрузить</a>
+  </h2></div></div></header>
+
+  <div class="container>
+  <center>
+  <div>
+  <h1>AJAX BASED ESP8266 WEBSERVER</h1>
+  <div><h2>
+    Temp(C): <span id="adc_val">0</span><br><br>
+    LED State: <span id="state">NA</span>
+  </h2>
+  </div>
+  </div>
+  <script>
+  function send(led_sts) 
+  {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("state").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "led_set?state="+led_sts, true);
+    xhttp.send();
+  }
+  setInterval(function() 
+  {
+    getData();
+  }, 2000); 
+  function getData() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("adc_val").innerHTML =
+        this.responseText;
+      }
+    };
+    xhttp.open("GET", "ds18b20read", true);
+    xhttp.send();
+  }
+  </script>
+
+  </center>
+      <!-- Вариант 1: Bootstrap в связке с Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  </div>
+</body>
+</html>
