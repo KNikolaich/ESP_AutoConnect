@@ -17,7 +17,6 @@ void Ds18b20_read()
 {
   if (millis() - delayForReadDs > mSecDelay) // пауза размером с delay
   {  
-    
     while (!sensor.isConversionComplete());  // ожидаем до тех пор, пока сенсор не считает значение (для разных битрейтов время отличается)
     {
       Serial.print("Temp: ");      
@@ -27,13 +26,10 @@ void Ds18b20_read()
     }
     delayForReadDs = millis();
     sensor.requestTemperatures(); // закажем заранее чтение , чтобы не тормозить потом с этим процессом. 
-    // sensor.requestTemperatures();
-    // _temperDallas = sensor.getTempC(insideThermometer);
-    // Serial.print("Temperature = ");
-    // Serial.print(_temperDallas);
   }
 }
 
+// выдаем данные по запросу скрипта
 void sensor_data() 
 {
 //  int a = analogRead(A0);

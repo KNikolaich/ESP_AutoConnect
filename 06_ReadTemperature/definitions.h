@@ -23,7 +23,7 @@
 // включаем клапан (он на GPIO_KLAPAN_PIN)
 bool  Check_klpn = false;
 // пин для клапана
-uint  GPIO_KLAPAN_PIN = 12; // = D6
+uint  GPIO_KLAPAN_PIN = 13; // = D7
 
  // включаем реле плитки (GPIO_IPLATE_PIN)
 bool  Check_plate = false;
@@ -31,7 +31,7 @@ bool  Check_plate = false;
 uint  GPIO_IPLATE_PIN = 4; // = D2
 
 // термодатчик даллас
-#define DS18B20PIN 2      // надо заменить на нейтральный, т.к. это пин голубого светодиода LED_BUILDIN и в то же время TXD1
+#define DS18B20PIN 12      // надо заменить на нейтральный, т.к. это пин голубого светодиода LED_BUILDIN и в то же время TXD1
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Включаем так же библиотеки
