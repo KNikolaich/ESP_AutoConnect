@@ -4,7 +4,7 @@ const char webRootPage[] PROGMEM = R"=====(
 <html>
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" data-bs-theme="dark">
   <title>Жарь цыплят, гони гусей</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
@@ -36,28 +36,20 @@ const char webRootPage[] PROGMEM = R"=====(
       </ul>
     </div>
   </nav>
+  <p><br></p>
   <div>
     <div class="card">
-      <div class="card-header">.</div>
+      <div class="card-header">Данные с датчика DS18B20 и состояние светодиода.</div>
       <div class="card-body">
         <h4>Temp(C): <span id="adc_val">-300</span></h4>
-        <p>Данные с датчика DS18B20.</p>
+        <h5>LED state: <span id="led_state">NA</span></h5>
       </div>
     </div>
   </div>
   <script>
-    function send(led_sts) {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("state").innerHTML = this.responseText;
-        }
-      };
-      xhttp.open("GET", "led_set?state=" + led_sts, true);
-      xhttp.send();
-    }
     setInterval(function() {
       getData();
+      getLedState();
     }, 2000);
 
     function getData() {
@@ -68,6 +60,16 @@ const char webRootPage[] PROGMEM = R"=====(
         }
       };
       xhttp.open("GET", "ds18b20read", true);
+      xhttp.send();
+    }
+    function getLedState() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("led_state").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "led_state_read", true);
       xhttp.send();
     }
   </script>
