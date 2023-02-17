@@ -36,8 +36,8 @@ void Ds18b20_read()
     while (!sensor.isConversionComplete());  // ожидаем до тех пор, пока сенсор не считает значение (для разных битрейтов время отличается)
     {
       Serial.print("Temp: ");      
-      _temperDallas = sensor.getTempC();
-      Serial.print(simpleKalman(_temperDallas));
+      _temperDallas = simpleKalman(sensor.getTempC());
+      Serial.print(_temperDallas);
       Serial.println("ºC");
     }
     delayForReadDs = millis();
