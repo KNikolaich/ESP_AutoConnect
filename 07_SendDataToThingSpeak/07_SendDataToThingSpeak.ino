@@ -27,7 +27,8 @@ void onConnect(IPAddress& ipaddr) {
 
 void setup() {
   delay(1000);
-  Serial.begin(115200);
+  // отключаем прием сигналов по сериальному порту, т.к. нужен ещё хотя бы один пин для работы
+  Serial.begin(115200, SERIAL_8N1, SERIAL_TX_ONLY); 
   
   // Добавлена конфигурация для автоматического реконнекта коннекта к порталу
   Config.title = String(FIRMWARE_VERSION) + String("!");

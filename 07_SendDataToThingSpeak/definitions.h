@@ -1,6 +1,6 @@
 /* Тут определяем константы и глобальные переменные
 */
-#define FIRMWARE_VERSION  "0.6.3 dev"
+#define FIRMWARE_VERSION  "0.7.0 dev"
 // расцветка коричневая (теплая, ламповая) https://hieromon.github.io/AutoConnect/colorized.html
 #define AUTOCONNECT_MENUCOLOR_TEXT        "#e6e6fa"
 #define AUTOCONNECT_MENUCOLOR_BACKGROUND  "#3e2723"
@@ -20,18 +20,28 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Какие GPIO к чему будут привязаны и начальные значения по дефолту
 //////////////////////////////////////////////////////////////////////////////////////////////////
-// включаем клапан (он на GPIO_KLAPAN_PIN)
-bool  Check_klpn = false;
-// пин для клапана
-uint  GPIO_KLAPAN_PIN = 13; // = D7
 
- // включаем реле плитки (GPIO_IPLATE_PIN)
-bool  Check_plate = false;
+// пин для пробуждения
+uint  GPIO_WAKE_PIN = 16; // = D0 (GPIO 16)
+// пин для клапана
+uint  GPIO_KLAPAN_PIN = 5; // = D1 (GPIO 5)
+// светодиод на борту (повесим на него флаг, отправлять данные на сервер или нет)
+uint  GPIO_LED_ONBOARD = 2; // = D4
+
 // пин питания плитки или ТЭНа
-uint  GPIO_IPLATE_PIN = 4; // = D2
+uint  GPIO_IPLATE_PIN = 12; // = D6 (GPIO 12)
+
+// Declaration for SSD1306 display connected using software SPI (default case):
+#define OLED_DC    D2 // GPIO 4 (D2)
+#define OLED_RESET D3 // GPIO 0 (D3)
+#define OLED_SCK   D5 // GPIO14 (D5) - еще может быть как OLED_CLK
+#define OLED_SDA   D7 // GPIO13 (D7) - еще может быть как OLED_MOSI
+#define OLED_CS    D8 // GPIO15 (D8)
 
 // термодатчик даллас
-#define DS18B20PIN 12      // надо заменить на нейтральный, т.к. это пин голубого светодиода LED_BUILDIN и в то же время TXD1
+#define DS18B20PIN 3  // необходимо отключить прием данных ком порта, чтобы работал порт RXD для наших нужд
+
+#define AnalogPin A0  // для чтения аналогового датчика есть у ESP8266 только один вход. 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // Включаем так же библиотеки
