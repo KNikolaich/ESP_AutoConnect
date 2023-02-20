@@ -14,11 +14,15 @@ void SetupThingSpeak() {
 void SendToTS()
 {
   // пауза размером с delay, значение меньше 0 по кельвину не шлем, если посылатель выключен, - тоже не шлем. Так же, включаем отправку вместе со светодиодом
-  if (millis() - delayForSendTs > sendDelay && _temperDallas > -300 && digitalRead(GPIO_IPLATE_PIN))
-  {  
+  if (millis() - delayForSendTs > sendDelay && (_temperDallas != -0.06 || _temperAnalog > -300) && digitalRead(GPIO_IPLATE_PIN))
+  {      
+    if(_temperDallas > 0) // TODO эскуственно обрежем все, что ниже нуля, потому что считываемые данные без датчика -0.06 
+      ThingSpeak.setField(1, _temperDallas);
+    if(_temperAnalog > -300)
+      ThingSpeak.setField(2, _temperAnalog);
     // Write to ThingSpeak. There are up to 8 fields in a channel, allowing you to store up to 8 different
     // pieces of information in a channel.  Here, we write to field 1.
-    int x = ThingSpeak.writeField(myChannelNumber, 1, _temperDallas, myWriteAPIKey);
+    int x = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
     if(x == 200){
       Serial.println("Channel update successful.");
     }

@@ -29,7 +29,7 @@ const char webRootPage[] PROGMEM = R"=====(
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
       <ul class="navbar-nav mr-4">
         <li class="nav-item">
-          <a class="nav-link " href="/led">Два светодиода</a>
+          <a class="nav-link " href="/properties">Настройки</a>
         </li>
         <li class="nav-item">
           <a class="nav-link " href="/_ac/update">OTA</a>
@@ -48,16 +48,28 @@ const char webRootPage[] PROGMEM = R"=====(
 
   <center>
   <div class="card">
-    <div class="card-header">Данные с датчика DS18B20 и состояние светодиода.</div>
+    <div class="card-header">Данные с датчика DS18B20.</div>
     <div class="card-body">
-      <h4>Temp(ºC): <span id="adc_val">-300</span></h4>
-      <h5>LED state: <span id="led_state">NA</span></h5>
+      <h4>Temp: <span id="ds18b20_val">-300</span> ºC</h4>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">Данные с аналогового датчика.</div>
+    <div class="card-body">
+      <h4>Temp: <span id="adc_val">-300</span> ºC</h4>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">Включена ли отправда данных на сервер.</div>
+    <div class="card-body">
+      <h5>Отправлять на ThingSpeak: <span id="led_state">NA</span></h5>
     </div>
   </div>
   </center>
   <script>
     setInterval(function() {
       getData();
+      getDataAnalog();
       getLedState();
     }, 2000);
 
@@ -65,10 +77,21 @@ const char webRootPage[] PROGMEM = R"=====(
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("adc_val").innerHTML = this.responseText;
+          document.getElementById("ds18b20_val").innerHTML = this.responseText;
         }
       };
       xhttp.open("GET", "ds18b20read", true);
+      xhttp.send();
+    }
+    
+    function getDataAnalog() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("adc_val").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "adcread", true);
       xhttp.send();
     }
     function getLedState() {

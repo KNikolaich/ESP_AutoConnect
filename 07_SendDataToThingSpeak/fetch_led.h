@@ -1,19 +1,19 @@
 
 // Define a path to the custom web page for the LED blink control.
-#define LED_ENDPOINT  "/led"
+#define LED_ENDPOINT  "/properties"
 // здесь локализованные надписи на кнопках
 #define ON "Включить"
 #define OFF "Выключить"
 const char LED_ONOFF[] PROGMEM = R"(
 {
   "uri": ")" LED_ENDPOINT R"(",
-  "title": "Два светодиода",
+  "title": "Настройки",
   "menu": true,
   "element": [
     {
       "name": "caption4",
       "type": "ACText",
-      "value": "На D4",
+      "value": "Отправляем данные на TS",
       "style": "font-size:25px;text-align:center;",
       "posterior": "div"
     },

@@ -13,7 +13,9 @@ void joinPages(AutoConnect& portal) {
   webServer.on("/", handleRoot);
   
   // обработка ajax запроса на данные с сервера (приходит каждые x секунд)
-  webServer.on("/ds18b20read", sensor_data);
+  webServer.on("/ds18b20read", sensor18b20_data);
+  // обработка ajax запроса на данные с сервера (приходит каждые x секунд)
+  webServer.on("/adcread", sensorAdc_data);
 
   // стрипт запрашивает состояние светодиода
   webServer.on("/led_state_read", handleLedState);

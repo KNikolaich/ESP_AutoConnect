@@ -49,7 +49,7 @@ void setup() {
 
   Portal.onConnect(onConnect);    // Если коннект случился, выполняем метод, как реакцию на событие
   Portal.begin();
-  Ds18b20_setup();
+  Sensors_setup();
   SetupThingSpeak();
 }
 
@@ -61,6 +61,7 @@ void loop() {
     // тут пишем код, который может выполняться в случае отсутсвия коннекта
   }
   Ds18b20_read();
+  Analog_read();
   SendToTS();
   Portal.handleClient();
   delay(1);
