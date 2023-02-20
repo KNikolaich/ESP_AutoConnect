@@ -14,11 +14,20 @@ unsigned long delayForReadDs = millis(); // таймер для работы с�
 unsigned long delayForReadA0 = millis(); // таймер для работы со считываниями
 int mSecDelay = 1000;  // пауза перед чтением
 
+const float _k_now = 0.05; // коэффициент сглаживания для вычисления EMA (11, это коэффициент длины сглаживания, чем больше, тем больше гладит)
+const float _k_before = 0.95; // коэффициент сглаживания предыдущего значения для вычисления EMA
+
 void Sensors_setup() {
   /* Start the DS18B20 Sensor */
   sensor.setResolution(12); // 12 бит чтения дает максимальную точность
   sensor.begin();
 }
+
+    /// экспоненциальное сглаживание, в результате имеем более сглаженную кривую, но отставание по времени (инерционность замеров серьезная.)
+    float getEMA(float beforeValue, float currentValue){
+      if(beforeValue < -273) return currentValue; // это должно произойти 1 раз
+      return currentValue * _k_now + beforeValue * _k_before;
+    }
 
 ////////////////////////////////////// простой кальман, - фильтр позволяет сглаживать резкие пробросы значений
 // _err_measure = 0.8;  // примерный шум измерений
@@ -66,8 +75,8 @@ void Analog_read()
 {
   if (millis() - delayForReadA0 > mSecDelay) // пауза размером с delay
   {  
-    Serial.print("Temp: ");      
-    _temperAnalog = simpleKalmanA0(therm.getTempAverage());
+    Serial.print("Temp: ");
+    _temperAnalog = getEMA(_temperAnalog, simpleKalmanA0(therm.getTempAverage()));
     Serial.print(_temperAnalog);
     Serial.println("ºC");
     delayForReadA0 = millis();

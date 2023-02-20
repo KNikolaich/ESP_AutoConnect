@@ -1,6 +1,6 @@
 /* Тут определяем константы и глобальные переменные
 */
-#define FIRMWARE_VERSION  "0.7.5 dev"
+#define FIRMWARE_VERSION  "0.7.6 dev"
 // расцветка коричневая (теплая, ламповая) https://hieromon.github.io/AutoConnect/colorized.html
 #define AUTOCONNECT_MENUCOLOR_TEXT        "#e6e6fa"
 #define AUTOCONNECT_MENUCOLOR_BACKGROUND  "#3e2723"
