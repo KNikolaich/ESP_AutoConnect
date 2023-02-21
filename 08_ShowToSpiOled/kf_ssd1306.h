@@ -17,12 +17,22 @@ c:\Users\[userName]\Documents\Arduino\libraries\Adafruit_SSD1306\Adafruit_SSD130
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
+#include "Bitmaps.h"
+#if defined(ARDUINO_ARCH_ESP8266)
+// Declaration for SSD1306 display connected using software SPI (default case):
 // If using software SPI (the default case):
-#define OLED_DC    D2 // GPIO 4 (D2)
-#define OLED_RESET D3 // GPIO 0 (D3)
-#define OLED_CLK   D5 // GPIO14 (D5) - еще может быть как OLED_CLK
-#define OLED_MOSI   D7 // GPIO13 (D7) - еще может быть как OLED_MOSI
-#define OLED_CS    D8 // GPIO15 (D8)
+#define OLED_DC    4  // GPIO 4 (D2)
+#define OLED_RESET 0  // GPIO 0 (D3)
+#define OLED_CLK   14 // GPIO14 (D5) - еще может быть как OLED_SCK
+#define OLED_MOSI  13 // GPIO13 (D7) - еще может быть как OLED_SDA
+#define OLED_CS    15 // GPIO15 (D8)
+#elif defined(ARDUINO_ARCH_ESP32)
+#define OLED_MOSI  22
+#define OLED_CLK   18
+#define OLED_DC    16
+#define OLED_CS    5
+#define OLED_RESET 17
+#endif
 Adafruit_SSD1306 display(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
 
 /* Uncomment this block to use hardware SPI
@@ -32,23 +42,22 @@ Adafruit_SSD1306 display(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
 Adafruit_SSD1306 display(OLED_DC, OLED_RESET, OLED_CS);
 */
 
-#define NUMFLAKES 10
-#define XPOS 0
-#define YPOS 1
-#define DELTAY 2
+#define LOGO_HEIGHT   64
+#define LOGO_WIDTH    128
 
+#if (SSD1306_LCDHEIGHT != 64)
+#error("Height incorrect, please fix Adafruit_SSD1306.h!");
+#endif
 
-// #if (SSD1306_LCDHEIGHT != 64)
-// #error("Height incorrect, please fix Adafruit_SSD1306.h!");
-// #endif
+void testdrawbitmap(void) {
+  display.clearDisplay();
 
-void testdrawtriangle(void) {
-  for (int16_t i=0; i<min(display.width(),display.height())/2; i+=5) {
-    display.drawTriangle(display.width()/2, display.height()/2-i,
-                     display.width()/2-i, display.height()/2+i,
-                     display.width()/2+i, display.height()/2+i, SSD1306_WHITE);
-    display.display();
-  }
+  display.drawBitmap(
+    (display.width()  - LOGO_WIDTH ) / 2,
+    (display.height() - LOGO_HEIGHT) / 2,
+    epd_bitmap_autogon2, LOGO_WIDTH, LOGO_HEIGHT, 1);
+  display.display();
+  delay(1000);
 }
 
 void SetupSsd1306()   {                
@@ -60,8 +69,8 @@ void SetupSsd1306()   {
   
   delay(500);
   display.clearDisplay();
-  testdrawtriangle();
-  delay(2000);
+  testdrawbitmap();
+  delay(5000);
   display.clearDisplay();
 
   // text display tests
