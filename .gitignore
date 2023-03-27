@@ -5,3 +5,5 @@
 /05_BlinkTwoLeds/build/esp32.esp32.esp32
 /05_BlinkTwoLeds/build/esp8266.esp8266.nodemcuv2
 04_HomePage/build/
+/08_ShowToSpiOled/build
+/09_TelegramBotSender/build/esp8266.esp8266.nodemcuv2
