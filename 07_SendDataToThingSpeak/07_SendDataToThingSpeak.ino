@@ -61,7 +61,7 @@ void loop() {
     // тут пишем код, который может выполняться в случае отсутсвия коннекта
   }
   Ds18b20_read();
-  Analog_read();
+  //Analog_read();
   SendToTS();
   Portal.handleClient();
   delay(1);

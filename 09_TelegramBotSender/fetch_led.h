@@ -92,11 +92,12 @@ void buildInSetup(AutoConnect &portal)
   Serial.printf("LEDs port assignment GPIOs ## %d, %d\n", GPIO_KLAPAN_PIN, GPIO_IPLATE_PIN);
   pinMode(GPIO_IPLATE_PIN, OUTPUT);
   pinMode(GPIO_KLAPAN_PIN, OUTPUT);
+  Serial.println("LEDs port assignment GPIOs ");
+  
   digitalWrite(GPIO_KLAPAN_PIN, true);// это реверсивный светодиод, ему true - выключает
   digitalWrite(GPIO_IPLATE_PIN, false); 
 
-  // связываем конфиг
-
+  Serial.println("Portal loading");
   // Load the AutoConnectAux page with the LED ON/OFF button into AutoConnect.
   // The sketch can get its instance using the AutoConnect::locate function
   // after AutoConnectAux is loaded.

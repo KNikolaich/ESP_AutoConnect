@@ -39,7 +39,7 @@ void setup() {
   Config.retainPortal = true;     // Keep the captive portal open.
   
   // OTA update можно включать обвновление по кнопке, как это описано тут https://hieromon.github.io/AutoConnect/otabrowser.html
-  Config.ota = AC_OTA_BUILTIN;
+  //Config.ota = AC_OTA_BUILTIN;
   Config.otaExtraCaption = FIRMWARE_VERSION; // можно видеть версию обновления на странице OTA
 
   // Присоединяем главную страницу

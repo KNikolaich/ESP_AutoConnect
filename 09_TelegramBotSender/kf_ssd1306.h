@@ -70,7 +70,7 @@ void SetupSsd1306()   {
   delay(500);
   display.clearDisplay();
   testdrawbitmap();
-  delay(5000);
+  delay(1000);
   display.clearDisplay();
 
   // text display tests

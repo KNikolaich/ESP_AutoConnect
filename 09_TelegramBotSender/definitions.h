@@ -1,6 +1,3 @@
-/* Тут определяем константы и глобальные переменные
-*/
-#define FIRMWARE_VERSION  "0.8.1 dev"
 // расцветка коричневая (теплая, ламповая) https://hieromon.github.io/AutoConnect/colorized.html
 #define AUTOCONNECT_MENUCOLOR_TEXT        "#e6e6fa"
 #define AUTOCONNECT_MENUCOLOR_BACKGROUND  "#3e2723"
@@ -24,7 +21,7 @@
 #define AnalogPin A0  // для чтения аналогового датчика есть у ESP8266 только один вход. 
 
 // светодиод на борту (повесим на него флаг, отправлять данные на сервер или нет)
-uint  GPIO_LED_ONBOARD = 2; // = D4
+uint  GPIO_LED_ONBOARD = LED_BUILTIN; // GPIO 2 = D4
 // термодатчик даллас
 #define DS18B20PIN 3        // необходимо отключить прием данных ком порта, чтобы работал порт RXD для наших нужд
 // пин для клапана
@@ -67,4 +64,4 @@ float _temperAnalog = -300;
 #include "custom_pages.h"
 #include "thing_speak_sender.h"
 #include "kf_ssd1306.h"
-#include "telega_bot.h"
+#include "kf_telega_bot.h"

@@ -24,7 +24,7 @@
 // пин для пробуждения
 uint  GPIO_WAKE_PIN = 16; // = D0 (GPIO 16)
 // пин для клапана
-uint  GPIO_KLAPAN_PIN = 5; // = D1 (GPIO 5)
+uint  GPIO_KLAPAN_PIN = 0; // = D3 (GPIO 0)
 // светодиод на борту (повесим на него флаг, отправлять данные на сервер или нет)
 uint  GPIO_LED_ONBOARD = 2; // = D4
 
