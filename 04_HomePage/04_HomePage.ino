@@ -18,7 +18,7 @@
 
 */
 
-#define FIRMWARE_VERSION  "0.4.1-dev"
+#define FIRMWARE_VERSION  "0.4.2-dev"
 // расцветка коричневая (теплая, ламповая) https://hieromon.github.io/AutoConnect/colorized.html
 #define AUTOCONNECT_MENUCOLOR_TEXT        "#e6e6fa"
 #define AUTOCONNECT_MENUCOLOR_BACKGROUND  "#3e2723"
@@ -28,9 +28,9 @@
 #define AUTOCONNECT_MENULABEL_CONFIGNEW   "Настройка новой AP"
 #define AUTOCONNECT_MENULABEL_OPENSSIDS   "Открыть SSIDs"
 #define AUTOCONNECT_MENULABEL_DISCONNECT  "Отключиться"
-#define AUTOCONNECT_MENULABEL_RESET       "Перезагрузка..."
+#define AUTOCONNECT_MENULABEL_RESET       "Перезагрузка!"
 #define AUTOCONNECT_MENULABEL_UPDATE      "OTA обновление"
-#define AUTOCONNECT_MENULABEL_HOME        "Главная"
+#define AUTOCONNECT_MENULABEL_HOME        "Home"
 #define AUTOCONNECT_MENULABEL_DEVINFO     "Инфо"
 #define AUTOCONNECT_BUTTONLABEL_RESET     "Перезагрузить"
 #define AUTOCONNECT_BUTTONLABEL_UPDATE    "Обновить"
