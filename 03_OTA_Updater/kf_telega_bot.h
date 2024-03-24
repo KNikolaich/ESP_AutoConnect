@@ -3,8 +3,8 @@
 // закрепление и открепление сообщений
 // напиши unpin для открепления всех сообщений
 
-#define BOT_TOKEN "939009222:AAFj7GRQ7YfinCk6gOtL4mgXQFj5ox8k84Y"
-#define CHAT_ID "420515519"
+#define BOT_TOKEN "your bot token"
+#define CHAT_ID "your chat id"
 
 #include <FastBot.h>
 FastBot bot(BOT_TOKEN);
