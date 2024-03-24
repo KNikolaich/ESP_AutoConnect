@@ -5,5 +5,5 @@
 #define SECRET_WRITE_APIKEY "XYZ"   // replace XYZ with your channel write API Key
 
 
-#define BOT_TOKEN "2654326546:asjhAsfAsfkllgUsaOuiz_axfkj_AsfkjhB"
-#define CHAT_ID "123456789"
+#define BOT_TOKEN "YOUR BOT TOKEN TELEGRAM"
+#define CHAT_ID "YOUR CHAT ID"
